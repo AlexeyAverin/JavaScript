@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+
+        <title>Рисовалка</title>
+        <script src="http://code.jquery.com/jquery-3.0.0.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+             }
+            .table {
+                display: flex;
+            }
+
+            #pad {
+                background: #def;
+                /*width: calc(100vw - 94px);
+                height: calc(100vh - 6px);*/
+                border: 1px solid #aaa;
+            }
+            .pad {
+                background: #abc;
+
+                width: calc(100vw - 94px);
+                height: 100vh;
+            }
+
+            .tools {
+                background: #bcd;
+                display: flex;
+                width: 86px;
+                height: 100vh;
+            }
+            .tool {
+                width: 41px;
+                height: 41px;
+                box-sizing: border-box;
+            }
+            .brown   { background: #945b0b; }
+            .red     { background: red;        }
+            .orange  { background: orange;     }
+            .yellow  { background: yellow;     }
+            .lime    { background: #0f0;       }
+            .green   { background: #0c0;       }
+            .cyan    { background: #42aaff;    }
+            .blue    { background: blue;       }
+            .magenta { background: magenta;    }
+            .white   { background: white;      }
+            .grey    { background: lightgrey;  }
+            .black   { background: black;      }
+
+            .sizes   { border-style: solid; border-color: #bcd; background: red; border-radius: 50%; }
+            .xxxs    { border-width: 19px; }
+            .xxs     { border-width: 18px; }
+            .xs      { border-width: 17px; }
+            .s       { border-width: 15px; }
+            .m       { border-width: 13px; }
+            .l       { border-width: 11px; }
+            .xl      { border-width: 9px; }
+            .xxl     { border-width: 7px; }
+            .xxxl    { border-width: 5px; }
+        </style>
+    </head>
+
+
+    <body>
+        <div class="table">
+            <div class="pad">
+                <canvas id="pad" width="935" height="490"></canvas>
+            </div>
+            <div class="tools">
+                <div class="colors">
+                    <div class="tool brown"></div>
+                    <div class="tool red"></div>
+                    <div class="tool orange"></div>
+                    <div class="tool yellow"></div>
+                    <div class="tool lime"></div>
+                    <div class="tool green"></div>
+                    <div class="tool cyan"></div>
+                    <div class="tool blue"></div>
+                    <div class="tool magenta"></div>
+                    <div class="tool white"></div>
+                    <div class="tool grey"></div>
+                    <div class="tool black"></div>
+
+                </div>
+                <div class="">
+                    <div class="tool sizes xxxs"></div>
+                    <div class="tool sizes xxs"></div>
+                    <div class="tool sizes xs"></div>
+                    <div class="tool sizes s"></div>
+                    <div class="tool sizes m"></div>
+                    <div class="tool sizes l"></div>
+
+                    <div class="tool sizes xl"></div>
+                    <div class="tool sizes xxl"></div>
+                    <div class="tool sizes xxxl"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            //Добрый день!!!
+            canvas = $('#pad')[0]
+
+            context = canvas.getContext("2d")
+            var pendown = false
+            var pencolor = 'black'
+            var pensize = 1
+ 
+ 
+            context.strokeStyle = pencolor
+            context.lineWidth = pensize
+
+            $('#pad').mousemove(function(e){
+                var xpos = e.pageX - canvas.offsetLeft
+                var ypos = e.pageY - canvas.offsetTop
+
+                if ( pendown ) context.lineTo(xpos, ypos)
+                else context.moveTo(xpos, ypos)
+
+                context.stroke()
+            })
+            $('#pad').mousedown(function(){ 
+                pendown = true;
+                context.strokeStyle = pencolor
+                context.lineWidth = pensize
+                context.beginPath();
+            })
+            $('#pad').mouseup  (function(){ 
+                pendown = false;
+                context.stroke();
+            })
+            
+            $('.brown').click  (function(){ pencolor = '#945b0b';    $('.sizes').css('background', '#945b0b');    })
+            $('.red').click    (function(){ pencolor = 'red';        $('.sizes').css('background', 'red');        })
+            $('.orange').click (function(){ pencolor = 'orange';     $('.sizes').css('background', 'orange');     })
+            $('.yellow').click (function(){ pencolor = 'yellow';     $('.sizes').css('background', 'yellow');     })
+            $('.lime').click   (function(){ pencolor = '#0f0';       $('.sizes').css('background', '#0f0');       })
+            $('.green').click  (function(){ pencolor = '#0c0';       $('.sizes').css('background', '#0c0');       })
+            $('.cyan').click   (function(){ pencolor = '#42aaff';    $('.sizes').css('background', '#42aaff');    })
+            $('.blue').click   (function(){ pencolor = 'blue';       $('.sizes').css('background', 'blue');       })
+            $('.magenta').click(function(){ pencolor = 'magenta';    $('.sizes').css('background', 'magenta');    })
+            $('.white').click  (function(){ pencolor = 'white';      $('.sizes').css('background', 'white');      })
+            $('.grey').click   (function(){ pencolor = 'lightgrey';  $('.sizes').css('background', 'lightgrey');  })
+            $('.black').click  (function(){ pencolor = 'black';      $('.sizes').css('background', 'black');      })
+
+            $('.xxxs').click (function(){ pensize = 1  })
+            $('.xxs').click  (function(){ pensize = 2  })
+            $('.xs').click   (function(){ pensize = 3  })
+            $('.s').click    (function(){ pensize = 5  })
+            $('.m').click    (function(){ pensize = 8 })
+            $('.l').click    (function(){ pensize = 11 })
+            $('.xl').click   (function(){ pensize = 14 })
+            $('.xxl').click  (function(){ pensize = 19 })
+            $('.xxxl').click (function(){ pensize = 24 })
+        </script>
+    </body>
+
+</html>

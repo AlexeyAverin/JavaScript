@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Trone</title>
+        <script src="http://code.jquery.com/jquery-3.0.0.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+             }
+            #field {
+                box-sizing: border-box;
+                background: #0c0;
+                border: 5px solid #090;
+            }
+
+        </style>
+    </head>
+    <body>
+        <canvas id="field"></canvas>
+        <script>
+            //Добрый день!!!
+            canvas = document.querySelector('canvas');
+            ctx = canvas.getContext('2d');
+
+            var width = canvas.width = window.innerWidth;
+            var height = canvas.height = window.innerHeight;
+
+
+            var color = 'yellow'
+            var size = 3
+            var speed = 7
+ 
+            var posX = width / 2;
+            var posY = height / 2;
+           
+
+            var score = 0;
+
+            
+            
+            ctx.strokeStyle = color
+            ctx.lineWidth = size
+            ctx.beginPath();
+
+
+            $(document).keydown(function(e){
+                var keyCode = e.which;
+                if      ( keyCode == 38 ) { posY > speed ? posY -= speed : posY; }
+                else if ( keyCode == 40 ) { posY < (height + speed) ? posY += speed : posY; }
+                else if ( keyCode == 39 ) { posX < (width + speed) ? posX += speed : posX; }
+                else if ( keyCode == 37 ) { posX > speed ? posX -= speed : posX; }
+                
+                
+
+                console.log( score );
+                ctx.lineTo(posX, posY);
+                ctx.stroke();
+
+                // Отображение очков
+                ctx.font = '19px monospace';
+                ctx.textAlign = 'right';            
+
+                ctx.fillStyle = '#0c0';
+                ctx.fillRect(824, 5, 140, 20);
+                ctx.fillStyle = color;
+                
+                score += 1;
+                textScore = 'Score: ' + score;
+                ctx.fillText(textScore, 960, 20);
+            });
+
+        </script>
+    </body>
+
+</html>
